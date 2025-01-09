@@ -1,0 +1,136 @@
+table Financials
+	lineageTag: 395e9fb6-359a-4d32-8e0a-afd368996969
+
+	column Country
+		dataType: string
+		lineageTag: 132978e4-7497-4cc7-ba6b-0a43cc6f5c7f
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product
+		dataType: string
+		lineageTag: 00444782-7c6c-4866-87d7-b3bafe07217e
+		summarizeBy: none
+		sourceColumn: Product
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Units Sold'
+		dataType: double
+		lineageTag: c495c3e0-0209-4df9-b74e-02f78f73206d
+		summarizeBy: sum
+		sourceColumn: Units Sold
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Revenue per cookie'
+		dataType: int64
+		formatString: 0
+		lineageTag: 17ac6e1f-5f3e-4682-bbd9-5095a66d7361
+		summarizeBy: sum
+		sourceColumn: Revenue per cookie
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cost per cookie'
+		dataType: int64
+		formatString: 0
+		lineageTag: 2b950b39-0b28-4a8e-9871-7733dd726ff2
+		summarizeBy: sum
+		sourceColumn: Cost per cookie
+
+		annotation SummarizationSetBy = Automatic
+
+	column Revenue
+		dataType: double
+		lineageTag: 315e47fb-2328-4611-a88d-dc296c1bde5e
+		summarizeBy: sum
+		sourceColumn: Revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Cost
+		dataType: int64
+		formatString: 0
+		lineageTag: 072086eb-1eda-43c2-8dab-522a77930016
+		summarizeBy: sum
+		sourceColumn: Cost
+
+		annotation SummarizationSetBy = Automatic
+
+	column Profit
+		dataType: double
+		lineageTag: 2f733444-235b-4703-9e81-baa64f378a36
+		summarizeBy: sum
+		sourceColumn: Profit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 9de26549-9c0b-4994-afc9-6d09414bd239
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Month Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: fbe8d5a2-c63a-45cf-91ea-368e32e42ba6
+		summarizeBy: sum
+		sourceColumn: Month Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name'
+		dataType: string
+		lineageTag: f7dd5a77-5c7a-4e91-b486-e6f8ef2d3aee
+		summarizeBy: none
+		sourceColumn: Month Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 132bd99e-be4f-4a8e-99de-a73e0bafec92
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column System
+		dataType: string
+		lineageTag: e7e932bb-c2ac-4a14-ab5b-16894777f33a
+		summarizeBy: none
+		sourceColumn: System
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Financials = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("D:\PowerBI\PipelineTest\" & FileSource & "\Pipeline Test Data.xlsx"), null, true),
+				    Sheet1_Sheet = Source{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Country", type text}, {"Product", type text}, {"Units Sold", type number}, {"Revenue per cookie", Int64.Type}, {"Cost per cookie", Int64.Type}, {"Revenue", type number}, {"Cost", Int64.Type}, {"Profit", type number}, {"Date", type date}, {"Month Number", Int64.Type}, {"Month Name", type text}, {"Year", Int64.Type}, {"System", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

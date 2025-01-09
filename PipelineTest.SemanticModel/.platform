@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "PipelineTest"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "97cc33ab-598b-45fe-aacd-01a64ae340d5"
+  }
+}

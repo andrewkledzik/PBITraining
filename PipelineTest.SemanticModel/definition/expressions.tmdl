@@ -1,0 +1,8 @@
+/// File source for deployment pipelines
+expression FileSource = "Dev" meta [IsParameterQuery=true, List={"Dev", "Test", "Prod"}, DefaultValue="Dev", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 20fbe413-f6de-409f-aece-1edc54bea4d1
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
