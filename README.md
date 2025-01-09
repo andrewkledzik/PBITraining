@@ -1,2 +1,2 @@
 # PBITraining
-Training repo linked to power bi service
+Training repo linked to power bi service. Development branch.
