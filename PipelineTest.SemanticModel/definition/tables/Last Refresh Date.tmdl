@@ -1,0 +1,27 @@
+table 'Last Refresh Date'
+	lineageTag: 6a70d96e-ad01-4b20-8bb1-f690387fb1e2
+
+	column 'Last Refresh Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: dba71677-f827-423a-9aea-a40d8e6cefec
+		summarizeBy: none
+		sourceColumn: Last Refresh Date
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Last Refresh Date' = m
+		mode: import
+		source =
+				let
+				    Source = DateTime.LocalNow(),
+				    #"Converted to Table" = #table(1, {{Source}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Converted to Table",{{"Column1", type datetime}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Column1", "Last Refresh Date"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

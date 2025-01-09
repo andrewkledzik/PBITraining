@@ -10,11 +10,12 @@ annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBIDesktopVersion = 2.138.1452.0 (24.11)
 
-annotation PBI_QueryOrder = ["Financials","FileSource"]
+annotation PBI_QueryOrder = ["Financials","FileSource","Last Refresh Date"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
 ref table Financials
+ref table 'Last Refresh Date'
 
 ref cultureInfo en-GB
 
